@@ -1,5 +1,5 @@
 # R Programming Notes
-Written by : Muhammad Idzhans Khairi
+### **Written by : Muhammad Idzhans Khairi**
 
 Learn More R by swirl :
 ```R
@@ -8,6 +8,10 @@ Learn More R by swirl :
 > install_course("R Programming")
 > swirl()
 ```
+
+You can also getting help by :
+* help()
+* ?
 
 ## The symbol "<-" is called *assignment*.
 To assign a word "hello" to a variable x, you type :
@@ -288,3 +292,92 @@ Another example when there are multiple things :
 > y[good]
 [1] "a" "d"
 ```
+
+
+## Control Structures (If-Else and ifelse)
+**Syntax :**
+```R
+#If-Else Condition
+if(cond1 = true) {command1} else {command 2}
+if(cond1 = true) {command1} else if(cond2 = true) {command2} else {command3}
+
+if(cond1 = true){
+  command1
+} else if(cond2 = true){
+  command2
+} else {
+  command3
+}
+
+#ifelse Condition
+ifelse(cond, yes, no)
+```
+
+
+## Control Structure (for loop / repeat loop / while loop)
+**Syntax :**
+```R
+# For Loop and few version of for loop
+for('variable' in 'sequence') {expression}
+
+x <- c("a", "b", "c", "d")
+
+for(i in 1:4) {
+  print(x[i])
+}
+
+for(letter in x){
+  print(letter)
+}
+
+for(i in seq_along(x)){
+  print(x[i])
+}
+
+for(i in 1:length(x)){
+  print(x[i])
+}
+
+
+# Repeat Loop
+repeat{(cond) expr}
+repeat{if(i > 25) break else{print(i); i <- i +5}}
+repeat{
+  if(i > 25){
+    break
+  }
+  else{
+    print(i)
+    i <- i + 5
+  }
+}
+[1] 10
+[1] 15
+[1] 20
+[1] 25
+
+
+# While loop
+while(condition) {expression}
+```
+
+
+## Control Structure (switch)
+**Syntax :**
+```R
+switch(expression,...)
+
+AA <- 'foo'
+switch(AA, foo = {print('foo')}, bar = {print('bar')}, {print('default')})
+switch(AA,
+       foo = {print('foo')},
+       bar = {print('bar')},
+       {print('default')}
+       )
+[1] "foo"
+```
+
+
+## The paste function
+The **paste** function is to paste two or more objects together.
+```R
