@@ -381,3 +381,85 @@ switch(AA,
 ## The paste function
 The **paste** function is to paste two or more objects together.
 ```R
+> paste("a", "b", sep = "")
+[1] "ab"
+> paste("a", "b", sep="***")
+[1] "a***b"
+> paste("a", "b", "c", sep = "***")
+[1] "a***b***c"
+```
+
+
+## R Function
+* We can create our own function which refered as **user defined functions**.
+* 3 types of function :
+  - Calling a function without an Argument
+  - Calling a function with Arguments Values (by position and by name)
+  - Calling a function with default Arguments
+### Calling a function
+```R
+# Create a function to print squares of numbers in sequence
+new.function <- function(a) {
+  for(i in 1:a) {
+    b <- i^2
+    print(b)
+  }
+}
+
+# Call the function new.function suppliying 6 as an argument.
+> new.function(6)
+[1] 1
+[1] 4
+[1] 9
+[1] 16
+[1] 25
+[1] 36
+```
+### Calling a function without an Argument
+```R
+# Create a function without an argument
+new.function <- function() {
+  for(i in 1:5) {
+    print(i^2)
+  }
+}
+
+# Call the function without suppliying an argument
+> new.function()
+[1] 1
+[1] 4
+[1] 9
+[1] 16
+[1] 25
+```
+### Calling a function with Argument Values (by position and by name)
+```R
+# Create a function with arguments
+new.function <- function(a, b, c) {
+  result <- a * b + c
+  print(result)
+}
+
+# Call the function by position of arguments
+> new.function(5, 3, 11)
+[1] 26
+
+# Call the function by names of the arguments (can be done without order)
+> new.function(a = 11, b = 5, c = 3)
+[1] 58
+```
+### Calling a function with default argument
+```R
+# Create a function with arguments
+new.function <- function(a = 3, b = 6) {
+  result <- a * b
+  print(result)
+}
+
+# Call the function without giving any argument
+> new.function()
+[1] 18
+
+# Call the function with giving new values of the argument
+> new.function(9, 5)
+[1] 45
