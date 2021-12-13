@@ -1,3 +1,7 @@
+# LAB 3 - FUNCTIONS
+
+
+
 ## Write a Function without an argument
 function_no_arg <- function() {
   for(i in 1:7) {
@@ -60,3 +64,4 @@ myCGPA <- function(A1 = 0, A2 = 0, A3 = 0, B1 = 0, B2 = 0, B3 = 0, C1 = 0, C2 = 
     print("Your CGPA is 0.00")
   }
 }
+
