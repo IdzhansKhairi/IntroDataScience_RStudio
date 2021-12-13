@@ -38,6 +38,7 @@ Basic classes of objects :
 * Integer
 * Complex
 * Logical (true/false)
+* You can refresh or clear your list of your variable by rm(list = ls())
 
 To check which class of an object, use **class()** command :
 ```R
@@ -465,6 +466,189 @@ new.function <- function(a = 3, b = 6) {
 [1] 45
 ```
 
+
+
+## Looping on the Command Line
+* Alternatives to writing **for-loop** and **while-loop**
+* lapply : loop over a list
+* sapply : same as lapply but simplify the result
+* apply  : apply a function over the margins of an array of matrix
+* tapply : apply a function over subsets of a vector
+
+### apply()
+* used on apply a function to margins of an array or matrix
+```R
+# "2" is for row and "4" is for column
+> x <- matrix(1:8, 2, 4)
+> x
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    5    7
+[2,]    2    4    6    8
+
+# "1" means the row
+> apply(x, 1, mean)
+[1] 4 5
+
+# "2" means column
+> apply(x, 2, mean)
+[1] 1.5 3.5 5.5 7.5
+
+> apply(x, 1, function(x) x/2)
+     [,1] [,2]
+[1,]  0.5    1
+[2,]  1.5    2
+[3,]  2.5    3
+[4,]  3.5    4
+```
+### lapply()
+* take a list, a function, and other arguments
+```R
+> x <- list(a=1:5, b=6:10)
+> x
+$a
+[1] 1 2 3 4 5
+
+$b
+[1]  6  7  8  9 10
+
+> lapply(x, mean)
+$a
+[1] 3
+
+$b
+[1] 8
+```
+```R
+> x <- list(a = matrix(1:4, 2, 2), b = matrix(1:6, 3, 2))
+> x
+$a
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+$b
+     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+
+> lapply(x, function(x) x[,1]/2) # [row, column]
+$a
+[1] 0.5 1.0
+
+$b
+[1] 0.5 1.0 1.5
+```
+### sapply()
+* Will try to simplify the result of lapply if possible
+* Output of sapply will always be either a vector or matrix or list
+```R
+> x <- list(a = 1:5, b = 6:10)
+> x
+$a
+[1] 1 2 3 4 5
+
+$b
+[1]  6  7  8  9 10
+
+> lapply(x, mean)
+$a
+[1] 3
+
+$b
+[1] 8
+
+> sapply(x, mean)
+a b 
+3 8 
+```
+### tapply()
+* Lets you iterate over a data type called factor. Therefore, good for grouping purpose.
+```R
+> name <- c("ting", "ting", "ting", "chong", "chong", "chong")
+> subject <- c("IT", "CS", "AI", "IT", "CS", "AI")
+> marks <- c(90, 95, 80, 90, 99, 85)
+> dt <- data.frame(name, subject, marks)
+> dt
+   name subject marks
+1  ting      IT    90
+2  ting      CS    95
+3  ting      AI    80
+4 chong      IT    90
+5 chong      CS    99
+6 chong      AI    85
+
+# To get sum of marks based on name, you type :
+> tapply(dt$marks, dt$name, sum)
+chong  ting 
+  274   265 
+  
+# To get mean for each subject
+> tapply(dt$marks, dt$subject, mean)
+  AI   CS   IT 
+82.5 97.0 90.0 
+
+# Spliting using split()
+> split(dt, dt$name)
+$chong
+   name subject marks
+4 chong      IT    90
+5 chong      CS    99
+6 chong      AI    85
+
+$ting
+  name subject marks
+1 ting      IT    90
+2 ting      CS    95
+3 ting      AI    80
+
+> split(dt, dt$subject)
+$AI
+   name subject marks
+3  ting      AI    80
+6 chong      AI    85
+
+$CS
+   name subject marks
+2  ting      CS    95
+5 chong      CS    99
+
+$IT
+   name subject marks
+1  ting      IT    90
+4 chong      IT    90
+```
+
+
+
+## Debugging
+1. message
+   - A generic notification/diagnostic produced by the message function
+   - Execution of the function continues
+2. warning
+   - Indication something is wrong but not necesserily fatal
+   - Execution continues
+   - Generation by warning function
+3. error
+   - Indication fatal problem has occured
+   - Execution stops
+   - produced by stop function
+4. condition
+   - Generic concept indicationg something unexpected can occur
+   - Programmers can create their own conditions.
+
+### Debugging Tools
+1. traceback
+   - Prints out the function call stack after an error occurs
+   - Does nothing if there's no error
+2. debug
+   - Flags a function for debug mode which allows you to step through execution of a function in debug mode.
+3. browser
+   - Suspends the execution of a function wherever it is called and puts the function in debug mode
+4. trace
+   - Allows you to insert debugging code into a function in specific places
+5. recover
+   - allows you to modify the error behavior so that you can browse the function call stack
 
 
 
