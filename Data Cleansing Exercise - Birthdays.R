@@ -74,5 +74,7 @@ filename_csv <- paste("cleanBirthdays", today(), ".csv", sep = " ")
 write.csv(tas, file = filename_csv)
 
 # To save the clean data as an rds file :
+# '.rds' is R's unique data format.
+# Benefits using '.rds' is that it can preserve the variables' data types as well so that nothing will have to be converted from one type to another.
 filename_rds <- paste("cleanBirthdays", today(), ".rds", sep = " ")
 saveRDS(tas, file = filename_rds)
