@@ -54,7 +54,10 @@ sapply(y, mean)        # Get to know the mean of each different column
 sapply(y, StdDev)      # Get to know the standard deviation of each column
 summary(iris)          # Get the overview of the data set
 
-
+## For measurement :
+# If the level of measurement level is "nominal", the it will be converted into an (unordered) factor
+# If the level of measurement is "ordinal", the item will be converted into an ordered vector
+#  If the measurement is "interval" or "ratio", the item will be converted into a numerical vector
 
 
 
