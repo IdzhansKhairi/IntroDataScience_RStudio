@@ -59,7 +59,7 @@ shinyUI(fluidPage(
 ))
 ```
 ### Sample Output :
-![Intro to Shiny Apps](Shiny Project/Media/Shiny Practice 1.png)
+![Intro To Shiny]()
 
 ## HTML Tags in Shiny
 Shiny provides several wrapper functions for using standard HTML tags in your ui.R, including h1() through h6(), p(), a(), div(), and span().
