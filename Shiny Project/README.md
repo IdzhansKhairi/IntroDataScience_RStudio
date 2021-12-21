@@ -41,3 +41,6 @@ A shiny project is a directory containing at least two files :
 
 
 ## HTML Tags in Shiny
+Shiny provides several wrapper functions for using standard HTML tags in your ui.R, including h1() through h6(), p(), a(), div(), and span().
+- See ?builder for more details.
+
