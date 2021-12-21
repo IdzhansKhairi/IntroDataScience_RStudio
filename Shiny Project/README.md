@@ -38,9 +38,63 @@ library(shiny)
 A shiny project is a directory containing at least two files :
 - ui.R (for user interface) controls how your app looks.
 - server.R that controls what your app does.
+### Sample Code :
+```R
+# Intro to Shiny Apps
+library(shiny)
+
+shinyUI(fluidPage( 
+
+    titlePanel("Data Science FTW"), # Application title
+
+    sidebarLayout(
+        sidebarPanel(
+            h3("Siderbar Text")
+        ),
+
+        mainPanel(
+            h3("Main Panel Text")
+        )
+    )
+))
+```
+### Sample Output :
 
 
 ## HTML Tags in Shiny
 Shiny provides several wrapper functions for using standard HTML tags in your ui.R, including h1() through h6(), p(), a(), div(), and span().
 - See ?builder for more details.
+
+### Sample Code :
+```R
+#HTML Tags
+
+library(shiny)
+
+shinyUI(fluidPage(
+  
+  titlePanel("HTML Tags"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      h1("H1 Text"),
+      h2("H2 Text"),
+      h3("H3 Text"),
+      em("Emphasized Text")
+    ),
+    
+    mainPanel(
+      h3("Main Panel Text"),
+      code("Some Code!")
+    )
+  )
+))
+```
+### Sample Output
+
+
+## App with Inputs and Outputs
+- Shiny provides several types of inputs including buttons, checkboxes, text boxes, and calendars.
+- First let's experiment with the slider input.
+- This simple app will display number that is slected with a slider.
 
