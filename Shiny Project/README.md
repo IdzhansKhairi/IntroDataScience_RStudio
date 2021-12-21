@@ -2,6 +2,7 @@
 
 ## Shiny
 - Shiny is a web application framework for R
+- An open source R package that provides an elegant and powerful web framework for building web applications using R.
 - Shiny allows you to create a graphical interface so that users can interact with your visualizations, models, and algorithms without needed to know R themselves.
 - Using Shiny, the time to create simple, yet powerful, web-based interactive data products in R is minimized.
 - Shiny is made by the fine folks at R Studio.
@@ -214,4 +215,256 @@ shinyServer(function(input, output) {
 - Is like a recipie that manipulates inputs from Shiny and then returns a value.
 - Provides a way for your app to respond since inputs will change depending on how users interact with your user interface.
 - Expression wrapped by a reactive() should be expressios that are subject to change.
+
+### Example Code (ui.R) :
+```R
+# Predict Horsepower from MPG
+
+library(shiny)
+
+shinyUI(fluidPage(
+  
+  titlePanel("Predict Horspower from MPG"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      # value = 20 is the default value
+      sliderInput("sliderMPG", "What is the MPG of the car?", 10, 35, value = 20),
+      checkboxInput("showModel1", "Show/Hide Model 1", value = TRUE),
+      checkboxInput("showModel2", "Show/Hide Model 2", value = TRUE)
+    ),
+    
+    mainPanel(
+      plotOutput("plot1"),
+      h3("Predicted Horsepower from Model 1 : "),
+      textOutput("pred1"),
+      h3("Predicted Horsepower from Model 2 : "),
+      textOutput("pred2"),
+    )
+  
+   )
+))
+```
+### Example Code (server.R) :
+```R
+library(shiny)
+
+shinyServer(function(input, output) {
+  
+  mtcars$mpgsp <- ifelse(mtcars$mpg - 20 > 0, mtcars$mpg - 20, 0)
+  model1 <- lm(hp ~ mpg, data = mtcars)
+  model2 <- lm(hp ~ mpgsp + mpg, data = mtcars)
+  
+  model1pred <- reactive({
+    mpgInput <- input$sliderMPG
+    predict(model1, newdata = data.frame(mpg = mpgInput))
+  })
+  
+  model2pred <- reactive({
+    mpgInput <- input$sliderMPG
+    predict(model2, newdata =
+              data.frame(mpg = mpgInput,
+                         mpgsp = ifelse(mpgInput - 20 > 0,
+                                        mpgInput - 20, 0)))
+  })
+  
+    output$plot1 <- renderPlot({
+    mpgInput <- input$sliderMPG
+    
+    plot(mtcars$mpg, mtcars$hp, xlab = "Miles Per Gallon",
+         ylab  = "Horsepower", bty = "n", pch = 16,
+         xlim = c(10, 35), ylim = c(50, 350))
+    
+    if(input$showModel1){
+      abline(model1, col = "red", lwd = 2)
+    }
+    
+    if(input$showModel2){
+      model2lines <- predict(model2, newdata = data.frame(
+        mpg = 10:35, mpgsp = ifelse(10:35 - 20 > 0, 10:35 - 20, 0)
+      ))
+      lines(10:35, model2lines, col = "blue", lwd = 2)
+    }
+    
+    legend(25, 250, c("Model 1 Prediction", "Model 2 Prediction"), pch = 16,
+           col = c("red", "blue"), bty = "n", cex = 1.2)
+    points(mpgInput, model1pred(), col = "red", pch = 16, cex = 2)
+    points(mpgInput, model2pred(), col = "blue", pch = 16, cex = 2)
+  })
+    
+    output$pred1 <- renderText({
+      model1pred()
+    })
+    
+    output$pred2 <- renderText({
+      model2pred()
+    })
+  
+})
+```
+### Example Output :
+![Predict Horsepower from MPG](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%205.png)
+
+
+## Delayed Reactivity
+- You might not want your app to immediately react to changes in user input because of something like a long-running calculation.
+- To prevent reactive expressions from reacting you can use a submit button in your app.
+
+### Example Code : 
+```R
+# Predict Horsepower from MPG
+# Using the same code of server.R as above before
+library(shiny)
+
+shinyUI(fluidPage(
+  
+  titlePanel("Predict Horspower from MPG"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      # value = 20 is the default value
+      sliderInput("sliderMPG", "What is the MPG of the car?", 10, 35, value = 20),
+      checkboxInput("showModel1", "Show/Hide Model 1", value = TRUE),
+      checkboxInput("showModel2", "Show/Hide Model 2", value = TRUE),
+      submitButton("submit") # New! Press submit then it will change
+    ),
+    
+    mainPanel(
+      plotOutput("plot1"),
+      h3("Predicted Horsepower from Model 1 : "),
+      textOutput("pred1"),
+      h3("Predicted Horsepower from Model 2 : "),
+      textOutput("pred2"),
+    )
+  
+   )
+))
+```
+### Example Output :
+You have to push the submit button, then the values of output will be changed.
+![Adding submit button](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%206.png)
+
+
+## Advance UI
+- There are several other kinds of UI components that you can mix into your app including tabs, navbars, and sidebars.
+- The **tabsetPanel()** function specifies a group of tabs.
+- The **tabPanel()** function specifies the contents of an individual tab.
+
+### Example Code (ui.R) :
+```R
+# More Tabs!
+
+library(shiny)
+
+shinyUI(fluidPage(
+  
+  titlePanel("Tabs!"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      textInput("box1", "Enter Tab 1 Text : ", value = "Tab 1!"),
+      textInput("box2", "Enter Tab 2 Text : ", value = "Tab 2!"),
+      textInput("box3", "Enter Tab 3 Text : ", value = "Tab 3!")
+  ),
+  
+  mainPanel(
+    tabsetPanel(type = "tabs",
+                tabPanel("Tab 1", br(), textOutput("out1")),
+                tabPanel("Tab 2", br(), textOutput("out2")),
+                tabPanel("Tab 3", br(), textOutput("out3"))
+                )
+           )
+  )
+))
+```
+### Example Code (server.R) :
+```R
+library(shiny)
+
+shinyServer(function(input, output) {
+  output$out1 <- renderText(input$box1)
+  output$out2 <- renderText(input$box2)
+  output$out3 <- renderText(input$box3)
+})
+```
+### Example Output :
+![Tabs](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%207.png)
+
+
+## Interactive Graphics
+- Shiny has the ability to create graphics that user can interact with.
+- You can use to select multiple data points on a graph is by specifying the brush argument in **plotOutput()** function on the **ui.R** side and then **brushedPoints()** function on the server.R side.
+
+### Example Code (ui.R) :
+```R
+# Visualize Many Models
+
+library(shiny)
+
+shinyUI(fluidPage(
+  
+  titlePanel("Visualize Many Models"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      h3("Slope"),
+      textOutput("slopeOut"),
+      h3("Intercept"),
+      textOutput("intOut")
+    ),
+    
+    mainPanel(
+      plotOutput("plot1", brush = brushOpts(
+        id = "brush1"
+      ))
+    )
+  )
+))
+```
+### Example Code (server.R) :
+```R
+library(shiny)
+
+shinyServer(function(input, output) {
+  
+  model <- reactive({
+    brushed_data <- brushedPoints(trees, input$brush1,
+                                  xvar = "Girth", yvar = "Volume")
+    
+    if(nrow(brushed_data) < 2){
+      return(NULL)
+    }
+    lm(Volume ~ Girth, data = brushed_data)
+  })
+  
+  output$slopeOut <- renderText({
+    if(is.null(model())){
+      "No model Found"
+    } else {
+      model()[[1]][2]
+    }
+  })
+  
+  output$intOut <- renderText({
+    if(is.null(model())){
+      "No Model Found"
+    } else {
+      model()[[1]][1]
+    }
+  })
+  
+  output$plot1 <- renderPlot({
+    plot(trees$Girth, trees$Volume, xlab = "Girth",
+         ylab = "Volume", main = "Tree Measurements",
+         cex = 1.5, pch = 16, bty = "n")
+    
+    if(!is.null(model())){
+      abline(model(), col = "blue", lwd = 2)
+    }
+  })
+  
+})
+```
+### Example Output :
+![Visualize Many Models](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%208.png)
 
