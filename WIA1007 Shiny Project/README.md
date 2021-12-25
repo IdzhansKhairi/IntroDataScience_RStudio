@@ -1,5 +1,8 @@
 # R Studio Shiny
 
+## R Studio Shiny Cheatsheet
+https://shiny.rstudio.com/images/shiny-cheatsheet.pdf
+
 ## Shiny
 - Shiny is a web application framework for R
 - An open source R package that provides an elegant and powerful web framework for building web applications using R.
