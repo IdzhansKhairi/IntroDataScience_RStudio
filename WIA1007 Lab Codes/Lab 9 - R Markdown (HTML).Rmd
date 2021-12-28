@@ -1,0 +1,113 @@
+---
+title: "Lab 9 - R Markdown (HTML)"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+# My First R Markdown  
+
+## Introduction  
+
+**Markdown** is a very basic and easy-to-use syntax for styling written documents.
+It's very easy to make some words **bold** and other words *italic* with Markdown.
+You can even [link to FCSIT](https://fsktm.um.edu.my/)! 
+
+**Here is a code chunk and it prints the code and result.** 
+
+```{r}
+set.seed(1)
+x <- rnorm(100)
+mean(x)
+```
+
+*Here is a code chunk but it only print the result.*
+```{r, echo=FALSE}
+set.seed(10)
+x <- rnorm(100)
+mean(x)
+```
+
+Here is a code chunk but it doesn't print anything!!!
+```{r, echo=FALSE, results="hide"}
+set.seed(10)
+x <- rnorm(100)
+mean(x)
+```
+
+Inline text computation
+
+```{r, echo=FALSE}
+time <-format(Sys.time(), "%a %b %d %X %Y")
+```
+
+### The current time is `r time`.
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+# My own R Markdown (U2000735)
+## The R code is **HIDDEN** but the image of plot is **SHOWN** :
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+library(ggplot2)
+
+data <- cars
+
+fig <- data %>%
+  plot_ly(
+    y = ~speed,
+    type = 'violin',
+    box = list(
+      visible = T
+    ),
+    meanline = list(
+      visible = T
+    ),
+    x0 = 'Speed'
+  )
+
+
+fig <- fig %>%
+  layout(
+    yaxis = list(
+      title = "",
+      zeroline = F
+    )
+  )
+
+fig
+```
+
+## Other Feature : Table of top 5 marvel movies
+
+Movie Name                     |Rating
+-------------------------------|------
+Thor : Ragnarok (2017)         |93%
+Iron Man (2008)                |94%
+Spider-Man : No Way Home (2021)|93%
+Avengers : Endgame             |94%
+Black Panther                  |96%
+
+
+
+## The image choosen from https://keukenhof.nl/en/ :
+
+![FirstImage](https://keukenhof.nl/wp-content/uploads/SvdV20211202-362-720x405-c-default.jpg)
+
+
+
+
+
