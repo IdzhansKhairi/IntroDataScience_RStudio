@@ -7,6 +7,7 @@ output:
 ---
 # My First R Markdown  
 
+
 ## Introduction  
 
 **Markdown** is a very basic and easy-to-use syntax for styling written documents.
