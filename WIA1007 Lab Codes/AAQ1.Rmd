@@ -1,0 +1,343 @@
+---
+title: "AAQ1"
+author: "Muhammad Idzhans Khairi (U2000735)"
+output: html_document
+---
+
+---
+
+# **Question 1(a)**
+
+---
+
+# **Titanic Dataset - Survival of passengers on the Titanic**
+
+## **Description**
+#### This data set provides information on the fate of passengers on the fatal maiden voyage of the ocean liner ‘Titanic’, summarized according to economic status (class), sex, age and survival.
+
+## **Details**
+#### The sinking of the Titanic is a famous event, and new books are still being published about it. Many well-known facts—from the proportions of first-class passengers to the ‘women and children first’ policy, and the fact that that policy was not entirely successful in saving the women and children in the third class—are reflected in the survival rates for various classes of passenger.
+
+#### These data were originally collected by the British Board of Trade in their investigation of the sinking. Note that there is not complete agreement among primary sources as to the exact numbers on board, rescued, or lost.
+
+#### Due in particular to the very successful film ‘Titanic’, the last years saw a rise in public interest in the Titanic. Very detailed data about the passengers is now available on the Internet, at sites such as Encyclopedia Titanica (https://www.encyclopedia-titanica.org/).
+
+![Titanic Ship](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/RMS_Titanic_3.jpg/450px-RMS_Titanic_3.jpg)
+
+## **Titanic Dataset**
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+library(knitr)
+titanicData <- data.frame(Titanic)
+
+kable(titanicData)
+
+```
+
+
+
+## **The bar chart below shows the number of survivors based on their age : **
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+library(ggplot2)
+
+titanicData <- data.frame(Titanic)
+
+survive <- split(titanicData, titanicData$Survived)
+surviveNo <- survive$No
+surviveYes<-survive$Yes
+
+NO <- tapply(surviveNo$Freq,surviveNo$Age,sum)
+YES <-tapply(surviveYes$Freq,surviveYes$Age,sum)
+
+combine<- data.frame(age=levels(titanicData$Age),total=c(YES,NO),survival=c("yes","yes","no","no"))
+
+ggplot(combine, aes(fill=survival, y=total, x=age )) +
+  geom_bar(position="dodge", stat="identity") +
+  ylab("Frequency")
+
+```
+
+##### **Here is the code on how to find the number people who survive and not survive according to their age : **
+```{r}
+
+titanicData <- data.frame(Titanic)
+
+survive <- split(titanicData, titanicData$Survived)
+surviveNo <- survive$No
+totalNoSurvive <- tapply(surviveNo$Freq, surviveNo$Age, sum)
+
+surviveYes <- survive$Yes
+totalYesSurvive <- tapply(surviveYes$Freq, surviveYes$Age, sum)
+
+```
+
+##### **Survived :**
+```{r, echo=FALSE}
+print(totalYesSurvive)
+
+```
+
+##### **Not survive :**
+```{r, echo=FALSE}
+print(totalNoSurvive)
+
+```
+
+Based on the bar chart above and the code above, as we can see there's a huge amount passengers of Titanic ship who does not survive the incidents and only a few of survivors. Based on the data above, 711 of the passengers consisting **57 Children** and **654 Adult** survived the incident. Meanwhile, 1490 of the passengers consisting **52 Children**  and **1438 Adult** does not survived the incident. The data shows that approximately **52.29%** of children survives and approximately **31.26%** of adult survives the incident.
+
+
+
+## **The barchart below shows the number of survivor based on their sex : **
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+library(ggplot2)
+
+titanicData <- data.frame(Titanic)
+
+survive <- split(titanicData, titanicData$Survived)
+surviveNo <- survive$No
+surviveYes<-survive$Yes
+
+NO <- tapply(surviveNo$Freq,surviveNo$Sex,sum)
+YES <-tapply(surviveYes$Freq,surviveYes$Sex,sum)
+
+combine<- data.frame(Sex=levels(titanicData$Sex),total=c(YES,NO),survival=c("yes","yes","no","no"))
+
+ggplot(combine, aes(fill=survival, y=total, x=Sex )) +
+  geom_bar(position="dodge", stat="identity") +
+  ylab("Frequency")
+
+```
+
+##### **Here is the code on how to find the number people who survive and not survive according to their sex : **
+```{r}
+titanicData <- data.frame(Titanic)
+
+survive <- split(titanicData, titanicData$Survived)
+surviveNo <- survive$No
+totalNoSurvive <- tapply(surviveNo$Freq, surviveNo$Sex, sum)
+
+surviveYes <- survive$Yes
+totalYesSurvive <- tapply(surviveYes$Freq, surviveYes$Sex, sum)
+
+```
+
+##### **Survived : **
+```{r, echo=FALSE}
+print(totalYesSurvive)
+
+```
+
+##### **Not survive : **
+```{r, echo=FALSE}
+print(totalNoSurvive)
+
+```
+
+Based on the data set and code above, 711 of passengers consisting of **367 Male** and **344 Female** survived the incident. Meanwhile, 1490 of the passengers consisting of **1364 Male** and **126 Female** does not survive the incident. The data shows that approximately **73.19%** of female survives and approximately **21.20%** of male survived the Titanic incident.
+
+
+
+## **Titanic Dataset Codebook**
+```{r, message=FALSE, warning=FALSE, echo = FALSE}
+
+library(memisc)
+titanicData <- data.frame(Titanic)
+codebook(titanicData)
+
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+library(summarytools)
+print(dfSummary(titanicData,graph.manif=.75),method="render")
+
+```
+
+
+---
+
+# **Question 1(b)**
+
+---
+
+# **NFT Sales nftData**
+
+#### We are going to use NFT Sales dataset named nft_sales2.csv to perform some of the functions of dplyr for data manipulations
+
+NFTs, or non-fungible tokens, are unique, irreplaceable, mostly digital items that users buy and sell online. NFTs use blockchain technology to keep a digital record of ownership, similar to cryptocurrencies.
+
+#### Firstly, we use the library dplyr and assign the dataset of nft_sales2.csv into a variable called nftData.
+```{r, message=FALSE}
+library(dplyr)
+
+## This data set has been downloaded and altered and saved in this my current directory
+nftData <- read.csv("C:/Users/Idzhans Khairi/Documents/FSKTM/Sem 1/(WIA1007) Introduction to Data Science/Lab/Data Set/nft_sales2.csv")
+
+```
+
+## **NFT Sales Data Set**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+library(knitr)
+
+kable(nftData)
+```
+
+## **filter()**
+The function called filter() in dplyr function is used to filter the data set, alter and extract data based on the condition given. For example based on the code below, we are using filter function to filter and extract data that consist NA values according to their respective column :
+
+```{r, message=FALSE}
+
+fil1 <- filter(nftData, is.na(nftData$Sales))  # To filter the data set only when there's an NA value at the Sales column
+fil2 <- filter(nftData, is.na(nftData$Buyers)) # To filter the data set only when there's an NA value at the Buyers column
+fil3 <- filter(nftData, is.na(nftData$Txns))   # To filter the data set only when there's an NA value at the Txns column
+fil4 <- filter(nftData, is.na(nftData$Owners)) # To filter the data set only when there's an NA value at the Owners column
+
+```
+#### **If we run the code this will be the result :**
+
+**When there's NA value in Sales Column :**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+print(fil1)
+```
+**When there's NA Value in Buyers column**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+print(fil2)
+```
+**When there's NA Value in Txns column**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+print(fil3)
+```
+**When there's NA Value in Owners column**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+print(fil4)
+```
+
+As we can see, when there's no NA value in **Sales**, **Buyers** and **Txns** column, it does not filter and extract data that contains NA value according to the respective column. However, there's NA value in the **Owners** column. Hence, it only extract rows or data that contains NA Value in the **Owners** column. 
+
+
+
+## **arrange()**
+The function called arrange() in dplyr function is used to sort the data set either in ascending or descending order and also it can be depends on the specific variables in columns. For example on the code below, we are going to assign some variable with either ascending or descending order based on their respective column :
+
+```{r, message=FALSE}
+ascending <- arrange(nftData, nftData$Buyers)  # To arrange in ascending order according to Buyers column
+descending <- arrange(nftData, desc(nftData$Buyers)) # To arrange in descending order according to Buyers Column
+
+```
+#### **If we run the code this will be the result :**
+
+**Ascending Order (Only show first 20 column) : **
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(head(ascending, 20))
+
+```
+**Descending Order (Only Show first 20 column) : **
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(head(descending, 20))
+
+```
+
+As we can see, when we use the function without **desc()**, it will sort the data based on **Buyers** column by ascending. Meanwhile, if we did use the function with **desc()**, it will sort the data based on **Buyers** column by descending. Hence, the arrange() function is used to manipulate data to be viewed ascendingly or descendingly.
+
+
+
+## **mutate()**
+The function called mutate() in dplyr function is used to add new variable and preserve the existing one. For example the code below, we are adding a new column called HalfSales which will display half of the value of the Sales Column for each row :
+
+```{r, message=FALSE}
+newData <- mutate(nftData, HalfSales = Sales/2)
+ 
+```
+#### **If we run the code this will be the result : **
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(head(newData, 20))
+
+```
+
+As we can see, the use of mutate() function is to add a new variable and data as a new column. Hence, the mutate() function is very useful for you to manipulate data by adding a new column to see the manipulated data for example to see the half value of the sales without calculating it one by one.
+
+
+
+## **select()**
+The function called select() in dplyr function is used to select and keeps certain variable that you mention in a data set. For example the code below, we are selecting only Owners column, only Sales and Buyers column, only Collections and Owners column.
+
+```{r, message=FALSE}
+
+owners <- select(nftData, "Owners") # Selecting only the Owners column
+
+salesANDbuyers <- select(nftData, "Sales", "Buyers") # Selecting only the Sales and Buyers column
+
+collectionsANDowners <- select(nftData, "Collections", "Owners") # Selecting only Collections and Owners column
+
+
+```
+#### **If we run the code this will be the result : **
+
+**Owners Column Only**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(head(owners, 10))
+
+```
+**Sales and Buyers Column Only**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(head(salesANDbuyers, 10))
+
+```
+**Collections and Owners Column Only**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(head(collectionsANDowners, 10))
+
+```
+
+As we can see, the use of select() function is to select and keeps the certain variable that you mention and select from the data set. The select() function not only can select one variable only. It also can select more than one variable in the data set. Hence, select() function is useful for you to manipulate your data set if you only wanted to see the data consisting only the columns that you desire.
+
+
+
+## **summarise()**
+The function called summarise() in dplyr function is used to summarise the data based on a mathematical operations or functions such as mean(), min() and max(), according to the selected variable. For example the code below, we are finding the mean or min or max value of a choosen variable.
+
+```{r, message=FALSE}
+# To summarise the mean of Sales column in the data set
+summer1 <- summarise(nftData, mean(Sales))
+
+# To summarise the mean of Sales and Owners Column in the data set
+# Since Owners column originally consist of NA value, hence, we have to use !is.na() to remove all NA values
+summer2 <- summarise(nftData, mean(Sales), mean(!is.na(Owners)))
+
+# To summarise the mean of Sales, find the minimum value of Sales, and find the maximum value of Sales
+summer3 <- summarise(nftData, mean(Sales), min(Sales), max(Sales))
+
+# To summarise by finding half value of Sales Column
+summer4 <- summarise(nftData, Sales/2)
+
+```
+#### **If we run the code this will be the result : **
+
+**Mean for Sales Column only**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+print(summer1)
+```
+**Mean for Sales Column and Owners Column**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+print(summer2)
+```
+**Mean, minimum value, maximum value Sales Column**
+```{r, message=FALSE, echo=FALSE, warning=TRUE}
+print(summer3)
+```
+**Half value of Sales Column**
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+print(head(summer4, 10))
+```
+
+As we can see, the use of the summarise() function is used to do a mathematical operation or functions such as mean(), min() and max() on the selected variable. If we are using the mathematical operation on the choosen variable, it will print out or display a column with multiple rows and not just a single line as if you are using functions like mean(). Hence, summary() function is useful for you to manipulate your data set if you wanted to find mathematical operation on a column of the data set.
+
+
+
+
