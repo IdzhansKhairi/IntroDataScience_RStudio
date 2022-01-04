@@ -63,7 +63,7 @@ shinyUI(fluidPage(
 ))
 ```
 ### Sample Output :
-![Intro To Shiny](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%201.png)
+![Intro To Shiny](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/WIA1007%20Shiny%20Project/Media/Shiny%20Practice%201.png)
 
 ## HTML Tags in Shiny
 Shiny provides several wrapper functions for using standard HTML tags in your ui.R, including h1() through h6(), p(), a(), div(), and span().
@@ -95,7 +95,7 @@ shinyUI(fluidPage(
 ))
 ```
 ### Sample Output
-![HTML Tags](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%202.png)
+![HTML Tags](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/WIA1007%20Shiny%20Project/Media/Shiny%20Practice%202.png)
 
 
 ## App with Inputs and Outputs
@@ -139,7 +139,7 @@ shinyServer(function(input, output) {
 ```
 ### Sample Output
 As we can see in the figure below, when the input is 42, the display output is 52.
-![Slider App](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%203.png)
+![Slider App](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/WIA1007%20Shiny%20Project/Media/Shiny%20Practice%203.png)
 
 
 ## Apps with Plots
@@ -211,7 +211,7 @@ shinyServer(function(input, output) {
 })
 ```
 ### Sample Output :
-![Plot Random Numbers](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%204.png)
+![Plot Random Numbers](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/WIA1007%20Shiny%20Project/Media/Shiny%20Practice%204.png)
 
 
 ## Reactivity
@@ -306,7 +306,7 @@ shinyServer(function(input, output) {
 })
 ```
 ### Example Output :
-![Predict Horsepower from MPG](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%205.png)
+![Predict Horsepower from MPG](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/WIA1007%20Shiny%20Project/Media/Shiny%20Practice%205.png)
 
 
 ## Delayed Reactivity
@@ -345,7 +345,7 @@ shinyUI(fluidPage(
 ```
 ### Example Output :
 You have to push the submit button, then the values of output will be changed.
-![Adding submit button](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%206.png)
+![Adding submit button](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/WIA1007%20Shiny%20Project/Media/Shiny%20Practice%206.png)
 
 
 ## Advance UI
@@ -391,7 +391,7 @@ shinyServer(function(input, output) {
 })
 ```
 ### Example Output :
-![Tabs](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%207.png)
+![Tabs](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/WIA1007%20Shiny%20Project/Media/Shiny%20Practice%207.png)
 
 
 ## Interactive Graphics
@@ -469,5 +469,5 @@ shinyServer(function(input, output) {
 })
 ```
 ### Example Output :
-![Visualize Many Models](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/Shiny%20Project/Media/Shiny%20Practice%208.png)
+![Visualize Many Models](https://github.com/IdzhansKhairi/IntroDataScience_RStudio/blob/main/WIA1007%20Shiny%20Project/Media/Shiny%20Practice%208.png)
 
