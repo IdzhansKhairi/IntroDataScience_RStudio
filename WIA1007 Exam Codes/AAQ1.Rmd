@@ -179,7 +179,7 @@ nftData <- read.csv("C:/Users/Idzhans Khairi/Documents/FSKTM/Sem 1/(WIA1007) Int
 ```{r, message=FALSE, echo=FALSE, warning=FALSE}
 library(knitr)
 
-kable(nftData)
+kable(dataJe)
 ```
 
 ## **filter()**

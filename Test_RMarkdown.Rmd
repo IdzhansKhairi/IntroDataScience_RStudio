@@ -1,0 +1,19 @@
+---
+title: "Testing"
+author: "IdzhansKhairi"
+date: "1/3/2022"
+output: html_document
+---
+
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+
+library(dplyr)
+library(knitr)
+
+movies <- read.csv("C:/Users/Idzhans Khairi/Documents/FSKTM/Sem 1/(WIA1007) Introduction to Data Science/Lab/Data Set/nft_sales.csv")
+
+moviesData <- data.frame(movies)
+
+kable(moviesData)
+
+```
