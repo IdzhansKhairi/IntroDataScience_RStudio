@@ -6,7 +6,7 @@ library(ggplot2)
 library(fmsb)
 
 # Read CSV file of Spotify
-spotifyData <- read.csv("C:/Users/Idzhans Khairi/Documents/FSKTM/Sem 1/(WIA1007) Introduction to Data Science/Lab/IntroDataScience_RStudio/Lab WIA1007/WIA1007 Data Set/SpotifyFeatures.csv")
+spotifyData <- read.csv("C:/Users/Idzhans Khairi/Documents/FSKTM/Sem 1/(WIA1007) Introduction to Data Science/Lab/R_Programming/WIA1007 Data Set/SpotifyFeatures.csv")
 spotifyData <- data.frame(spotifyData)
 View(spotifyData)
 
